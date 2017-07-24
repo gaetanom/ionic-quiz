@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+<h4>Impostazioni</h4>
+
+<ion-item-group>
+    <ion-item-divider color="light">Numero di quesiti</ion-item-divider>
+    <ion-item>
+      <ion-segment [(ngModel)]="num" (ionChange)="set_num_quesiti($event);">
+        <ion-segment-button [value]="10">
+          10
+        </ion-segment-button>
+        <ion-segment-button [value]="20">
+          20
+        </ion-segment-button>
+        <ion-segment-button [value]="50">
+          50
+        </ion-segment-button>
+        <ion-segment-button [value]="100">
+          100
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item>
+</ion-item-group>
+
+<ion-item-group>
+  <ion-item-divider color="light">   
+      <ion-label>Argomenti</ion-label>
+  </ion-item-divider>
+  
+  <ion-item color="light">
+    <ion-label item-right>Tutti</ion-label>
+    <ion-toggle [(ngModel)]="is_tutti_argomenti" (ionChange)="abilita_tutti_argomenti();"></ion-toggle>
+  </ion-item>
+
+  <div *ngIf="!is_tutti_argomenti">
+    <ion-item *ngFor="let arg of argomenti">
+      <ion-label>Argomento {{ arg }}</ion-label>
+      <ion-toggle [disabled]="is_tutti_argomenti" (ionChange)="abilita_argomenti( arg , $event );" item-right></ion-toggle>
+    </ion-item>
+  </div>
+</ion-item-group>
+    
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-title text-center>
+      <button ion-button (click)="go_to_quesiti();" full [disabled]="! is_tutti_argomenti && argomenti_selected.length == 0">
+        Vai ai Quesiti
+      </button>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

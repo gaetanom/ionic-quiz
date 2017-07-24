@@ -1,0 +1,22 @@
+page-quesiti {
+
+}
+    ion-card{
+        margin: 1em;
+        margin-bottom: 1em;
+        border-bottom: 2px solid #ccc;
+    }
+    .risposta_data{
+        border-left: 5px solid #488aff;
+    }
+
+    .risposta_non_data{
+        border-left: 5px solid #eee;
+    }
+
+    .risposta_data_ok{
+        border-left: 5px solid #32db64;
+    }
+    .risposta_data_ko{
+        border-left: 5px solid #f53d3d;
+    }

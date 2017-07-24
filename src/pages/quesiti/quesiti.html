@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{ num }} Quesiti
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="load_data();" icon-only>
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  
+  <!--<ion-segment [(ngModel)]="num" (ionChange)="set_num_quesiti($event);">
+    <ion-segment-button [value]="10">
+      10
+    </ion-segment-button>
+    <ion-segment-button [value]="20">
+      20
+    </ion-segment-button>
+    <ion-segment-button [value]="50">
+      50
+    </ion-segment-button>
+    <ion-segment-button [value]="100">
+      100
+    </ion-segment-button>
+  </ion-segment>-->
+
+  <ion-card 
+  *ngFor="let art of selected_items; let i = index"
+  [class]="art.risposta_data 
+  ? (vedi_risultato ? (art.risposta_data == 1 ? 'risposta_data_ok' : 'risposta_data_ko' ) : 'risposta_data' )
+  : 'risposta_non_data'"
+  >
+    <ion-card-header text-wrap>
+      <ion-note style="float:right">Quesito: {{ art.id }}</ion-note>
+      <h2>{{ i + 1 }}) {{ art.domanda }}</h2> 
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-list>        
+        <button 
+        ion-item 
+        text-wrap
+        *ngFor="let num_risp of art.array_number_random" 
+        [color]="art.risposta_data == num_risp ? 'primary' : 'light'" 
+        style="margin-bottom:.5em"
+        (click)="set_risposta(i, art, num_risp);">
+
+          <ion-icon 
+          item-start 
+          *ngIf="vedi_risultato && art.risposta_data == 1 && art.risposta_data == num_risp; else rispSbagliata" 
+          [color]="'secondary'" 
+          [name]="'md-checkmark-circle'"></ion-icon>
+          <ng-template #rispSbagliata>
+            <ion-icon 
+            item-start 
+            *ngIf="vedi_risultato && art.risposta_data == num_risp" 
+            [color]="'danger'" 
+            [name]="'md-sad'"></ion-icon>
+          </ng-template>
+          
+          {{ art['risposta_' + num_risp] }}
+        </button>
+      </ion-list>      
+    </ion-card-content>
+
+    <ion-label text-center *ngIf="vedi_risultato" color="primary">Argomento: {{ art.argomento }}</ion-label>
+
+  </ion-card>
+
+<ion-fab right bottom>   
+   <button ion-fab (click)="set_view_esito();" [color]="vedi_risultato ? 'secondary' : 'danger'">
+        <ion-icon 
+        [name]="vedi_risultato ? 'eye' : 'eye-off'"
+        [color]="vedi_risultato ? '' : ''"></ion-icon>
+      </button>
+</ion-fab>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-title text-center>
+
+      <ion-slides paginationType="progress" pager style="height:10px">
+        <ion-slide *ngFor="let n of selected_items"></ion-slide>
+      </ion-slides>
+
+      Risposte
+      <ion-badge>{{numero_di_risposte}}/{{ num }}</ion-badge>
+      
+      <ion-badge color="secondary" *ngIf="vedi_risultato">Esatte: {{numero_di_risposte_ok}}</ion-badge>
+      
+      <ion-badge color="danger" *ngIf="vedi_risultato">Sbagliate: {{numero_di_risposte_ko}}</ion-badge>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>
