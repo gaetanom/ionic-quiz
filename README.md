@@ -17,7 +17,7 @@ Aver installato l'ambiente Ionic (http://ionicframework.com/docs/intro/installat
 ## Installazione
 
 ```bash
-$ git clone ...
+$ git clone https://github.com/gaetanom/ionic-quiz.git
 ```
 
 e successivamente 
