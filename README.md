@@ -25,3 +25,7 @@ e successivamente
 ```bash
 $ npm install
 ```
+
+## TODO
+
+- Statistiche
